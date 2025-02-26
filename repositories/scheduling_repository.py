@@ -53,3 +53,10 @@ class SchedulingRepository(CRUDBase):
             return {"message": "Agendamento removido com sucesso."}
         except Exception as e:
             raise HTTPException(status_code=500, detail="Erro ao remover agendamento.") from e
+
+
+    def get_schedulings_by_doctor_and_date(self, doctor_id: int, scheduling_date: str):
+        return self.base_repository.db.query(self._entity).filter(
+            self._entity.doctor_id == doctor_id,
+            self._entity.scheduling_date == scheduling_date
+        ).all()

@@ -5,6 +5,7 @@ from routers.security import security
 from routers.patients import patient
 from routers.doctors import doctor
 from routers.schedulings import scheduling
+from routers.availability import availability
 from fastapi import FastAPI
 import uvicorn
 
@@ -14,6 +15,8 @@ app.include_router(user, prefix='/api', tags=['users'])
 app.include_router(patient, prefix='/api', tags=['patients'])
 app.include_router(doctor, prefix='/api', tags=['doctors'])
 app.include_router(scheduling, prefix='/api', tags=['schedulings'])
+app.include_router(availability, prefix='/api', tags=['availability'])
+
 
 app.add_middleware(
     CORSMiddleware,
