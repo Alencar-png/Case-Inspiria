@@ -22,6 +22,9 @@ class PatientsRepository(CRUDBase):
             is not None
         )
 
+    def find_by_cpf(self, cpf: str):
+        return self.base_repository.db.query(self._entity).filter(self._entity.cpf == cpf).first()
+
     def create(self, patient_data: PatientCreate):
         if self.cpf_exists(patient_data.cpf):
             raise HTTPException(status_code=400, detail="CPF já cadastrado.")

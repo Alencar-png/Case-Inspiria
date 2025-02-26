@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship, deferred
 from config.database import Base
+import uuid
 
 class User(Base):
     __tablename__ = "users"
@@ -11,7 +13,6 @@ class User(Base):
     password = deferred(Column(String, nullable=False))
     is_admin = Column(Boolean, nullable=False)
 
-
 class Patient(Base):
     __tablename__ = "patients"
 
@@ -21,6 +22,8 @@ class Patient(Base):
     birth_date = Column(String, nullable=False)
     phone = Column(String, nullable=False)
     health_insurance = Column(Boolean, nullable=False)
+    
+    schedulings = relationship("Scheduling", back_populates="patient")
 
 class Doctor(Base):
     __tablename__ = "doctors"
@@ -29,3 +32,19 @@ class Doctor(Base):
     name = Column(String, nullable=False)
     specialty = Column(String, nullable=False)
     crm = Column(String, nullable=False, unique=True)
+    
+    schedulings = relationship("Scheduling", back_populates="doctor")
+
+class Scheduling(Base):
+    __tablename__ = "schedulings"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    scheduling_date = Column(String, nullable=False)
+    scheduling_time = Column(String, nullable=False)
+    scheduling_type = Column(String, nullable=False)
+    doctor_id = Column(Integer, ForeignKey("doctors.id"))
+    patient_id = Column(Integer, ForeignKey("patients.id"))
+    rescheduled = Column(Boolean, nullable=False)
+    
+    doctor = relationship("Doctor", back_populates="schedulings")
+    patient = relationship("Patient", back_populates="schedulings")
