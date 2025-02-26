@@ -21,3 +21,11 @@ class Patient(Base):
     birth_date = Column(String, nullable=False)
     phone = Column(String, nullable=False)
     health_insurance = Column(Boolean, nullable=False)
+
+class Doctor(Base):
+    __tablename__ = "doctors"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    specialty = Column(String, nullable=False)
+    crm = Column(String, nullable=False, unique=True)
