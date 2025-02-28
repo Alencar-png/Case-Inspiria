@@ -62,3 +62,7 @@ class DoctorsRepository(CRUDBase):
             return {"message": "Médico removido com sucesso."}
         except Exception as e:
             raise HTTPException(status_code=500, detail="Erro ao remover médico.") from e
+
+
+    def find_by_specialty(self, specialty: str):
+        return self.base_repository.db.query(self._entity).filter(self._entity.specialty == specialty).all()

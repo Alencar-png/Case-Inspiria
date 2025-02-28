@@ -29,3 +29,7 @@ def update_doctor(doctor_id: int, doctor_data: DoctorUpdate, repo: DoctorsReposi
 @doctor.delete("/doctors/{doctor_id}")
 def delete_doctor(doctor_id: int, repo: DoctorsRepository = Depends()):
     return repo.delete(doctor_id)
+
+@doctor.get("/doctors/specialty/{specialty}", response_model=List[DoctorResponse])
+def read_doctors_by_specialty(specialty: str, repo: DoctorsRepository = Depends()):
+    return repo.find_by_specialty(specialty)

@@ -3,6 +3,7 @@ from repositories.base_repository import BaseRepository, CRUDBase
 from schemas.scheduling_schemas import SchedulingCreate, SchedulingUpdate
 from models.models import Scheduling
 import logging
+from uuid import UUID
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ class SchedulingRepository(CRUDBase):
         except Exception as e:
             raise HTTPException(status_code=500, detail="Erro ao criar agendamento.") from e
 
-    def find_one(self, scheduling_id: int):
+    def find_one(self, scheduling_id: UUID):
         scheduling = self.base_repository.find_one(self._entity, scheduling_id)
         if not scheduling:
             raise HTTPException(status_code=404, detail="Agendamento não encontrado.")
@@ -37,7 +38,7 @@ class SchedulingRepository(CRUDBase):
     def find_all(self):
         return self.base_repository.find_all(self._entity)
 
-    def update(self, scheduling_id: int, scheduling_data: SchedulingUpdate):
+    def update(self, scheduling_id: UUID, scheduling_data: SchedulingUpdate):
         try:
             scheduling = self.base_repository.find_one(self._entity, scheduling_id)
             if not scheduling:
@@ -47,13 +48,12 @@ class SchedulingRepository(CRUDBase):
         except Exception as e:
             raise HTTPException(status_code=500, detail="Erro ao atualizar agendamento.") from e
 
-    def delete(self, scheduling_id: int):
+    def delete(self, scheduling_id: UUID):
         try:
             self.base_repository.delete_one(self._entity, scheduling_id)
             return {"message": "Agendamento removido com sucesso."}
         except Exception as e:
             raise HTTPException(status_code=500, detail="Erro ao remover agendamento.") from e
-
 
     def get_schedulings_by_doctor_and_date(self, doctor_id: int, scheduling_date: str):
         return self.base_repository.db.query(self._entity).filter(

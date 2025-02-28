@@ -9,9 +9,9 @@ from routers.availability import availability
 from fastapi import FastAPI
 import uvicorn
 
-app = FastAPI(title='Case-Inspiria', version='0.1.0')
-app.include_router(security, prefix='/api', tags=['security'])
-app.include_router(user, prefix='/api', tags=['users'])
+app = FastAPI(title='Case-Inspiria - LolaBot', version='0.1.0')
+# app.include_router(security, prefix='/api', tags=['security'])
+# app.include_router(user, prefix='/api', tags=['users'])
 app.include_router(patient, prefix='/api', tags=['patients'])
 app.include_router(doctor, prefix='/api', tags=['doctors'])
 app.include_router(scheduling, prefix='/api', tags=['schedulings'])
@@ -21,7 +21,7 @@ app.include_router(availability, prefix='/api', tags=['availability'])
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
-    allow_methods=['*'],
+    allow_methods=['*'], 
     allow_headers=['*']
 )
 
