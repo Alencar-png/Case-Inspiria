@@ -6,6 +6,7 @@ class PatientCreate(BaseModel):
     birth_date: str
     phone: str
     health_insurance: bool
+    photo: str
 
 class PatientUpdate(BaseModel):
     name: str
@@ -13,6 +14,7 @@ class PatientUpdate(BaseModel):
     birth_date: str
     phone: str
     health_insurance: bool
+    photo: str
 
 class PatientResponse(BaseModel):
     id: int
@@ -21,6 +23,7 @@ class PatientResponse(BaseModel):
     birth_date: str
     phone: str
     health_insurance: bool
+    photo: str
 
     class Config:
         orm_mode = True

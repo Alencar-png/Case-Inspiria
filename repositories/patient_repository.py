@@ -45,7 +45,8 @@ class PatientsRepository(CRUDBase):
             cpf=patient_data.cpf,
             birth_date=patient_data.birth_date,
             phone=patient_data.phone,
-            health_insurance=patient_data.health_insurance
+            health_insurance=patient_data.health_insurance,
+            photo=patient_data.photo
         )
         try:
             return self.base_repository.create(new_patient)

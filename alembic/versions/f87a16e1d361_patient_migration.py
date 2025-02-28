@@ -27,6 +27,7 @@ def upgrade() -> None:
         sa.Column('birth_date', sa.String(), nullable=False),
         sa.Column('phone', sa.String(), nullable=False),
         sa.Column('health_insurance', sa.Boolean(), nullable=False),
+        sa.Column('photo', sa.String(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('cpf')
     )

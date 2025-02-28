@@ -22,6 +22,7 @@ class Patient(Base):
     birth_date = Column(String, nullable=False)
     phone = Column(String, nullable=False)
     health_insurance = Column(Boolean, nullable=False)
+    photo = Column(String, nullable=True) 
     
     schedulings = relationship("Scheduling", back_populates="patient")
 
